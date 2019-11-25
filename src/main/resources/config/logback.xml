@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+	<property name="LOGS_ABSOLUTE_PATH" value="./logs" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>[%d{HH:mm:ss}][%level] %logger{20} %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOGS_ABSOLUTE_PATH}/jiwoo-openstack.log</file>
+		<encoder>
+			<pattern>[%d{HH:mm:ss}][%level] %logger{20} %msg%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOGS_ABSOLUTE_PATH}/jiwoo-openstack.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+	</appender>
+	
+    <root level="debug">
+		<appender-ref ref="ROLLING" />
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>
