@@ -2,7 +2,7 @@ package jiwoo.openstack.rest;
 
 public class APIKey {
 
-	public String token = "";
+	private String token = "";
 
 	public APIKey(String token) {
 		this.token = token;

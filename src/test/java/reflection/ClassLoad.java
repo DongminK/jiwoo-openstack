@@ -1,37 +1,60 @@
 package reflection;
 
-import java.lang.reflect.Method;
-
-import jiwoo.openstack.wrapping.keystone.KeystoneConstants;
-import jiwoo.openstack.wrapping.keystone.KeystoneInfo;
-import jiwoo.openstack.wrapping.keystone.request.auth.tokens.IAuthTokensRequest;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.jar.JarFile;
 
 public class ClassLoad {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
-		KeystoneInfo info = new KeystoneInfo("http://192.168.119.31:5000");
-		info.setVer(KeystoneConstants.VER_3_9);
-		String clzName = "AuthTokens";
-		String pkgName = getPkgName(clzName);
-
-		String pkg = "";//KeystoneConstants.PACKAGE + "." + IAuthTokensRequest.PKG_NAME + "." + info.getVer() + "." + clzName + "Request";
+		String pkg = "jiwoo.openstack.wrapping.keystone.restapi";
 		System.out.println(pkg);
 
-		try {
-			Class c = Class.forName(pkg);
-			Method m[] = c.getDeclaredMethods();
-			for (int i = 0; i < m.length; i++)
-				System.out.println(m[i].toString());
+		System.out.println(getClassList("src/main/java", pkg));
 
-		} catch (Throwable e) {
-			e.printStackTrace();
+	}
+
+	public static List getClassList(String libPath, String packagePath) throws IOException {
+		List classList = new ArrayList();
+		Package targetPackage = Package.getPackage(packagePath);
+		if (targetPackage == null) {
+			System.err.printf("Inserted Package Path(%s) is invalid!!", packagePath);
+			return null;
 		}
 
+		if (new File(libPath).exists() == false) {
+			System.err.printf("Invalid class path(%s)!!", libPath);
+			return null;
+		}
+		if (libPath.toUpperCase().endsWith(".JAR")) {
+			JarFile jf = new JarFile(libPath);
+			for (Enumeration e = jf.entries(); e.hasMoreElements();) {
+				String path = e.nextElement().toString().replace("/", ".");
+				if (path.endsWith(".class") && path.startsWith(packagePath)) {
+					classList.add(path.replace(".class", ""));
+					System.out.println(path.replace(".class", ""));
+				}
+			}
+		} else {
+			if (new File(libPath).isDirectory() == false) {
+				System.err.printf("Invalid class path(%s)!!", libPath);
+				return null;
+			}
+			File[] files = new File(libPath).listFiles();
+			for (int i = 0; i < files.length; i++) {
+				String path = files[i].getName().replace("/", ".");
+				if (path.endsWith(".class")) {
+					classList.add(packagePath + "." + path.replace(".class", ""));
+					System.out.println(packagePath + "." + path.replace(".class", ""));
+				}
+			}
+		}
+
+		return classList;
 	}
 
-	public static String getPkgName(String className) {
-		String pkgName = className.replaceAll("(.)(\\p{Upper})", "$1.$2").toLowerCase();
-		return pkgName;
-	}
 }
