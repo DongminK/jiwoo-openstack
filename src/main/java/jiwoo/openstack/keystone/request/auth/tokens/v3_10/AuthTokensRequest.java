@@ -30,24 +30,97 @@ public class AuthTokensRequest implements IAuthTokensRequest {
 		return "auth/tokens";
 	}
 
-	public void passwordAuthWithUnscopeAuthorization(String domain, String name, String password) {
+	public void passwordAuthWithUnscope(String domain, String name, String password) {
 		method = HttpPost.METHOD_NAME;
-		postResponseMethod = "passwordAuthWithUnscopeAuthorization";
-		jData = Auth.passwordAuthWithUnscopeAuthorization(domain, name, password);
+		postResponseMethod = "passwordAuthWithUnscope";
+		jData = Auth.passwordAuthWithUnscope(domain, name, password);
 	}
 
-	public void passwordAuthWithScopeAuthorization(String id, String password, boolean isAll) {
+	public void passwordAuthWithSystemScope(String id, String password, boolean isAll) {
 		method = HttpPost.METHOD_NAME;
-		postResponseMethod = "passwordAuthWithScopeAuthorization";
-		jData = Auth.passwordAuthWithScopeAuthorization(id, password, isAll);
+		postResponseMethod = "passwordAuthWithSystemScope";
+		jData = Auth.passwordAuthWithSystemScope(id, password, isAll);
 	}
 
-	public void passwordAuthWithScopeAuthorization(String domainId, String id, String password) {
+	public void passwordAuthWithDomainIdScope(String domainId, String id, String password) {
 		method = HttpPost.METHOD_NAME;
-		postResponseMethod = "passwordAuthWithScopeAuthorization";
-		jData = Auth.passwordAuthWithScopeAuthorization(domainId, id, password);
+		postResponseMethod = "passwordAuthWithDomainIdScope";
+		jData = Auth.passwordAuthWithDomainIdScope(domainId, id, password);
+	}
+	
+	public void passwordAuthWithDomainNameScope(String domainName, String id, String password) {
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "passwordAuthWithDomainNameScope";
+		jData = Auth.passwordAuthWithDomainNameScope(domainName, id, password);
 	}
 
+	public void passwordAuthWithProjectIdScope(String projectId, String id, String password) {
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "passwordAuthWithProjectIdScope";
+		jData = Auth.passwordAuthWithProjectIdScope(projectId, id, password);
+	}
+	
+	public void passwordAuthWithProjectNameScope(String projectName, String domainId, String id, String password) {
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "passwordAuthWithProjectNameScope";
+		jData = Auth.passwordAuthWithProjectNameScope(projectName, domainId, id, password);
+	}
+	
+	public void passwordAuthWithExplicitUnscope(String id, String password) {
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "passwordAuthWithExplicitUnscope";
+		jData = Auth.passwordAuthWithExplicitUnscope(id, password);
+		
+	}
+	
+	public void tokenAuthWithUnscope(String tokenId) {
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "tokenAuthWithUnscope";
+		jData = Auth.tokenAuthWithUnscope(tokenId);
+	}
+	
+	public void tokenAuthWithSystemScope(String tokenId, boolean isAll) {
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "tokenAuthWithSystemScope";
+		jData = Auth.tokenAuthWithSystemScope(tokenId, isAll);
+	}
+	
+	public void tokenAuthWithDomainIdScope(String tokenId, String domainId) {
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "tokenAuthWithDomainIdScope";
+		jData = Auth.tokenAuthWithDomainIdScope(tokenId, domainId);
+	}
+	
+	public void tokenAuthWithDomainNameScope(String tokenId, String domainName) {
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "tokenAuthWithDomainNameScope";
+		jData = Auth.tokenAuthWithDomainNameScope(tokenId, domainName);
+	}
+	
+	@Override
+	public void tokenAuthWithProjectIdScope(String tokenId, String projectId) {
+		// TODO Auto-generated method stub
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "tokenAuthWithProjectIdScope";
+		jData = Auth.tokenAuthWithProjectIdScope(tokenId, projectId);
+	}
+
+	@Override
+	public void tokenAuthWithProjectNameScope(String tokenId, String projectName, String domainId) {
+		// TODO Auto-generated method stub
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "tokenAuthWithProjectNameScope";
+		jData = Auth.tokenAuthWithProjectNameScope(tokenId, projectName, domainId);
+	}
+	
+	@Override
+	public void tokenAuthWithExplicitUnscope(String tokenId) {
+		// TODO Auto-generated method stub
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "tokenAuthWithExplicitUnscope";
+		jData = Auth.tokenAuthWithExplicitUnscope(tokenId);
+	}
+	
 	public JSONObject toJsonObject() {
 		return jData;
 	}
@@ -55,5 +128,9 @@ public class AuthTokensRequest implements IAuthTokensRequest {
 	public String toJsonString() {
 		return jData.toString();
 	}
+
+	
+
+
 
 }

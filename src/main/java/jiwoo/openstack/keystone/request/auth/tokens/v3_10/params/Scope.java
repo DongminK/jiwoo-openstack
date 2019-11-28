@@ -8,6 +8,7 @@ public class Scope extends JsonParams {
 
 	private System system = null;
 	private Domain domain = null;
+	private Project project = null;
 
 	public Domain getDomain() {
 		return domain;
@@ -25,11 +26,20 @@ public class Scope extends JsonParams {
 		this.system = system;
 	}
 
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
 	public JSONObject toJSONObject() {
 		JSONObject jObj = new JSONObject();
 
 		set(jObj, "domain", domain != null ? domain.toJSONObject() : null);
 		set(jObj, "system", system != null ? system.toJSONObject() : null);
+		set(jObj, "project", project != null ? project.toJSONObject() : null);
 
 		return jObj;
 	}

@@ -27,7 +27,8 @@ public class AuthTokensResponse extends AbstractAuthTokensResponse {
 
 		Header[] header = httpResponse.getHeaders("X-Subject-Token");
 		if (header != null && header.length > 0) {
-			apiKey = new APIKey(header[0].getValue());
+			apiKey = new APIKey();
+			apiKey.setToken(header[0].getValue());
 		}
 
 		String response = baseHandleResponse(httpResponse);
@@ -40,20 +41,105 @@ public class AuthTokensResponse extends AbstractAuthTokensResponse {
 				e.printStackTrace();
 				jResponse = new JSONObject(response);
 			}
+		} else {
+			jResponse = new JSONObject(response);
 		}
 
 		return jResponse;
 	}
 
-	protected JSONObject passwordAuthWithUnscopeAuthorization(String response) {
-		System.out.println("Call TestMethod passwordAuthWithUnscopeAuthorization");
+	protected JSONObject passwordAuthWithUnscope(String response) {
+		System.out.println("Call TestMethod passwordAuthWithUnscope");
 		return new JSONObject(response);
 	}
 
 	@Override
-	protected JSONObject passwordAuthWithScopeAuthorization(String response) {
+	protected JSONObject passwordAuthWithSystemScope(String response) {
 		// TODO Auto-generated method stub
-		System.out.println("Call TestMethod passwordAuthWithScopeAuthorization");
+		System.out.println("Call TestMethod passwordAuthWithSystemScope");
+		return new JSONObject(response);
+	}
+
+	@Override
+	protected JSONObject passwordAuthWithDomainIdScope(String response) {
+		// TODO Auto-generated method stub
+		System.out.println("Call TestMethod passwordAuthWithDomainIdScope");
+		return new JSONObject(response);
+	}
+
+	@Override
+	protected JSONObject passwordAuthWithDomainNameScope(String response) {
+		// TODO Auto-generated method stub
+		System.out.println("Call TestMethod passwordAuthWithDomainNameScope");
+		return new JSONObject(response);
+	}
+
+	@Override
+	protected JSONObject passwordAuthWithProjectIdScope(String response) {
+		// TODO Auto-generated method stub
+		System.out.println("Call TestMethod passwordAuthWithProjectIdScope");
+		return new JSONObject(response);
+	}
+
+	@Override
+	protected JSONObject passwordAuthWithProjectNameScope(String response) {
+		// TODO Auto-generated method stub
+		System.out.println("Call TestMethod passwordAuthWithProjectNameScope");
+		return new JSONObject(response);
+	}
+
+	@Override
+	protected JSONObject passwordAuthWithExplicitUnscope(String response) {
+		// TODO Auto-generated method stub
+		System.out.println("Call TestMethod passwordAuthWithExplicitUnscope");
+		return new JSONObject(response);
+	}
+
+	@Override
+	protected JSONObject tokenAuthWithUnscope(String response) {
+		// TODO Auto-generated method stub
+		System.out.println("Call TestMethod tokenAuthWithUnscope");
+		return new JSONObject(response);
+	}
+
+	@Override
+	protected JSONObject tokenAuthWithSystemScope(String response) {
+		// TODO Auto-generated method stub
+		System.out.println("Call TestMethod tokenAuthWithSystemScope");
+		return new JSONObject(response);
+	}
+
+	@Override
+	protected JSONObject tokenAuthWithDomainIdScope(String response) {
+		System.out.println("Call TestMethod tokenAuthWithDomainIdScope");
+		return new JSONObject(response);
+	}
+
+	@Override
+	protected JSONObject tokenAuthWithDomainNameScope(String response) {
+		// TODO Auto-generated method stub
+		System.out.println("Call TestMethod tokenAuthWithDomainNameScope");
+		return new JSONObject(response);
+	}
+
+	@Override
+	protected JSONObject tokenAuthWithProjectIdScope(String response) {
+		// TODO Auto-generated method stub
+		System.out.println("Call TestMethod tokenAuthWithProjectIdScope");
+		return new JSONObject(response);
+	}
+
+	@Override
+	protected JSONObject tokenAuthWithProjectNameScope(String response) {
+		// TODO Auto-generated method stub
+		System.out.println("Call TestMethod tokenAuthWithProjectNameScope");
+		return new JSONObject(response);
+	}
+
+	@Override
+	protected JSONObject tokenAuthWithExplicitUnscope(String response) {
+		// TODO Auto-generated method stub
+		System.out.println("Call TestMethod tokenAuthWithExplicitUnscope");
 		return new JSONObject(response);
 	}
 

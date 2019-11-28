@@ -4,7 +4,7 @@ public class APIKey {
 
 	private String token = "";
 
-	public APIKey(String token) {
+	public void setToken(String token) {
 		this.token = token;
 	}
 

@@ -8,6 +8,7 @@ public class Identity extends JsonParams {
 
 	private Methods methods = null;
 	private Password password = null;
+	private Token token = null;
 
 	public Methods getMethods() {
 		return methods;
@@ -25,11 +26,20 @@ public class Identity extends JsonParams {
 		this.password = password;
 	}
 
+	public Token getToken() {
+		return token;
+	}
+
+	public void setToken(Token token) {
+		this.token = token;
+	}
+
 	public JSONObject toJSONObject() {
 		JSONObject jObj = new JSONObject();
 
 		set(jObj, "methods", methods != null ? methods.toJSONArray() : null);
 		set(jObj, "password", password != null ? password.toJSONObject() : null);
+		set(jObj, "token", token != null ? token.toJSONObject() : null);
 
 		return jObj;
 	}

@@ -1,15 +1,15 @@
-package jiwoo.openstack.keystone;
+package jiwoo.openstack.nova;
 
 import jiwoo.openstack.common.Openstack;
 import jiwoo.openstack.rest.APIKey;
 
-public class Keystone implements Openstack {
+public class Nova implements Openstack {
 
 	private String url = null;
 	private String ver = null;
 	private final APIKey apiKey = new APIKey();
 
-	public Keystone(String url) {
+	public Nova(String url) {
 		this.url = url;
 	}
 
@@ -21,19 +21,21 @@ public class Keystone implements Openstack {
 		return ver;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
 	public void setVer(String ver) {
 		this.ver = ver;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public APIKey getApiKey() {
 		return apiKey;
 	}
 
+	@Override
 	public void setToken(String token) {
+		// TODO Auto-generated method stub
 		apiKey.setToken(token);
 	}
 

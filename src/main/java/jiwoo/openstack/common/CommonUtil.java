@@ -2,12 +2,10 @@ package jiwoo.openstack.common;
 
 import java.lang.reflect.Method;
 
-import jiwoo.openstack.keystone.Keystone;
-
 public class CommonUtil {
 
 	@SuppressWarnings("rawtypes")
-	public static Object getClassByVersion(Class clzRequest, Keystone info) throws Exception {
+	public static Object getClassByVersion(Class clzRequest, Openstack info) throws Exception {
 
 		String pkg = clzRequest.getPackage().getName();
 		String clzName = clzRequest.getSimpleName();

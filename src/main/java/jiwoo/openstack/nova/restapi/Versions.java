@@ -1,13 +1,13 @@
-package jiwoo.openstack.keystone.restapi;
+package jiwoo.openstack.nova.restapi;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jiwoo.openstack.keystone.KeystoneConstants;
-import jiwoo.openstack.keystone.request.versions.VersionsRequest;
-import jiwoo.openstack.keystone.response.versions.VersionsResponse;
+import jiwoo.openstack.nova.NovaConstants;
+import jiwoo.openstack.nova.request.versions.VersionsRequest;
+import jiwoo.openstack.nova.response.versions.VersionsResponse;
 import jiwoo.openstack.rest.RestAPI;
 import jiwoo.openstack.rest.RestHandler;
 
@@ -18,7 +18,7 @@ public class Versions extends RestHandler {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return KeystoneConstants.VERSIONS;
+		return NovaConstants.VERSIONS;
 	}
 
 	@Override
@@ -54,18 +54,21 @@ public class Versions extends RestHandler {
 
 		JSONObject jResponse = restResponse.toJsonObject();
 
-		JSONObject jVersions = jResponse.getJSONObject("versions");
-		JSONArray jArrValues = jVersions.getJSONArray("values");
+		JSONArray jArrVersions = jResponse.getJSONArray("versions");
 
-		for (int i = 0, size = jArrValues.length(); i < size; i++) {
-			JSONObject jValue = jArrValues.getJSONObject(i);
-			String status = jValue.getString("status");
+		for (int i = 0, size = jArrVersions.length(); i < size; i++) {
+			JSONObject jVersion = jArrVersions.getJSONObject(i);
+			String status = jVersion.getString("status");
+			
+			System.out.println("status : "  +status);
+			
+			if (status.compareTo("CURRENT") == 0) {
+				String id = jVersion.getString("id"); // Version
+				
+				System.out.println("id : "  +id);
+				JSONArray jArrLinks = jVersion.getJSONArray("links");
 
-			if (status.compareTo("stable") == 0) {
-				String id = jValue.getString("id"); // Version
-				JSONArray jArrLinks = jValue.getJSONArray("links");
-
-				for (int j = 0, linkSize = jArrLinks.length(); i < linkSize; j++) {
+				for (int j = 0, linkSize = jArrLinks.length(); j < linkSize; j++) {
 					JSONObject jLink = jArrLinks.getJSONObject(j);
 					String rel = jLink.getString("rel");
 

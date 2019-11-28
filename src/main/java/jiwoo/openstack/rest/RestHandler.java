@@ -4,17 +4,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jiwoo.openstack.common.CommonUtil;
-import jiwoo.openstack.keystone.Keystone;
+import jiwoo.openstack.common.Openstack;
 
 public abstract class RestHandler {
 
 	private Logger logger = LoggerFactory.getLogger(RestHandler.class);
-	protected Keystone keystoneInfo;
+	protected Openstack openstack;
 	protected RestRequest restRequest = null;
 	protected RestResponse restResponse = null;
 
-	public void setKeystoneInfo(Keystone keystoneInfo) throws Exception {
-		this.keystoneInfo = keystoneInfo;
+	public void setOpenstackInfo(Openstack openstack) throws Exception {
+		this.openstack = openstack;
 		initialize(getRequestClass(), getResponseClass());
 	}
 
@@ -42,13 +42,13 @@ public abstract class RestHandler {
 		if (!reqUrl.startsWith("/"))
 			reqUrl = "/" + reqUrl;
 
-		return keystoneInfo.getUrl() + reqUrl;
+		return openstack.getUrl() + reqUrl;
 	}
 
 	@SuppressWarnings("rawtypes")
 	protected void initialize(Class restRequest, Class restResponse) throws Exception {
-		this.restRequest = (RestRequest) CommonUtil.getClassByVersion(restRequest, keystoneInfo);
-		this.restResponse = (RestResponse) CommonUtil.getClassByVersion(restResponse, keystoneInfo);
+		this.restRequest = (RestRequest) CommonUtil.getClassByVersion(restRequest, openstack);
+		this.restResponse = (RestResponse) CommonUtil.getClassByVersion(restResponse, openstack);
 	}
 
 	abstract public String getName();

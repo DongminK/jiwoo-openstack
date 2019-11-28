@@ -59,7 +59,7 @@ public class AuthTokens extends RestHandler {
 		if (restRequest.getHttpMethod().equals(HttpPost.METHOD_NAME)) {
 			RestAPI.post(null, getUrl(), data, restResponse);
 			APIKey apiKey = getResponse().getAPIKey();
-			keystoneInfo.setApiKey(apiKey);
+			openstack.getApiKey().setToken(apiKey.getToken());
 		} else if (restRequest.getHttpMethod().equals(HttpGet.METHOD_NAME)) {
 			String params = "";
 			if (data.has("params"))
