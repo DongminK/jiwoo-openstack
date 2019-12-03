@@ -1,4 +1,4 @@
-package jiwoo.openstack.nova.request.versions;
+package jiwoo.openstack.neutron.request.versions;
 
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONObject;
