@@ -1,5 +1,7 @@
 package jiwoo.openstack.keystone.request.versions;
 
+import java.util.HashMap;
+
 import org.json.JSONObject;
 
 import jiwoo.openstack.rest.RestRequest;
@@ -35,6 +37,12 @@ public class VersionsRequest implements RestRequest {
 	public String toJsonString() {
 		// TODO Auto-generated method stub
 		return jData.toString();
+	}
+
+	@Override
+	public HashMap<String, String> getHeaders() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

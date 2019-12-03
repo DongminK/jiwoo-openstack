@@ -37,4 +37,8 @@ abstract public class AbstractAuthTokensResponse extends RestResponse {
 
 	abstract protected JSONObject tokenAuthWithExplicitUnscope(String response);
 
+	abstract protected JSONObject validateToken(String response);
+
+	abstract protected JSONObject checkToken(String response);
+
 }

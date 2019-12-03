@@ -22,7 +22,10 @@ public class KeystoneTest {
 		System.out.println(response);
 		
 		APIKey apiKey = keystone.getAPIKey();
-
+		
+		keystone.validateToken(apiKey.getToken());
+		keystone.checkToken(apiKey.getToken());
+		
 		NovaManager nova = new NovaManager();
 		nova.connect("http://192.168.119.31:8774", apiKey);
 		

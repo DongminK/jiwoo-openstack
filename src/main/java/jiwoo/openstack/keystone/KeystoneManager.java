@@ -108,6 +108,32 @@ public class KeystoneManager {
 		return authTokens.process();
 	}
 
+	public String validateToken(String token) throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+
+		AuthTokens authTokens = new AuthTokens();
+		authTokens.setOpenstackInfo(keystone);
+
+		IAuthTokensRequest request = authTokens.getRequest();
+		request.validateToken(token);
+
+		return authTokens.process();
+	}
+
+	public String checkToken(String token) throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+
+		AuthTokens authTokens = new AuthTokens();
+		authTokens.setOpenstackInfo(keystone);
+
+		IAuthTokensRequest request = authTokens.getRequest();
+		request.checkToken(token);
+
+		return authTokens.process();
+	}
+
 	public APIKey getAPIKey() {
 		if (keystone != null) {
 			return keystone.getApiKey();

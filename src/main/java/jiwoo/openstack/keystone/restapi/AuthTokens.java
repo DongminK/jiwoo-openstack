@@ -1,5 +1,7 @@
 package jiwoo.openstack.keystone.restapi;
 
+import java.util.HashMap;
+
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
@@ -56,16 +58,31 @@ public class AuthTokens extends RestHandler {
 		JSONObject data = restRequest.toJsonObject();
 		restResponse.setPostResponseMethod(restRequest.getPostResponseMethod());
 
+		APIKey apiKey = openstack.getApiKey();
+		HashMap<String, String> mapHeaders = restRequest.getHeaders();
+
+		if (apiKey != null) {
+			mapHeaders.put("X-Auth-Token", apiKey.getToken());
+		}
+
 		if (restRequest.getHttpMethod().equals(HttpPost.METHOD_NAME)) {
-			RestAPI.post(null, getUrl(), data, restResponse);
-			APIKey apiKey = getResponse().getAPIKey();
-			openstack.getApiKey().setToken(apiKey.getToken());
+
+			RestAPI.post(mapHeaders, getUrl(), data, restResponse);
+			apiKey = getResponse().getAPIKey();
+
+			if (apiKey != null)
+				openstack.getApiKey().setToken(apiKey.getToken());
+
 		} else if (restRequest.getHttpMethod().equals(HttpGet.METHOD_NAME)) {
+
 			String params = "";
 			if (data.has("params"))
 				params = data.getString("params");
-			RestAPI.get(null, getUrl() + "?" + params, restResponse);
+
+			RestAPI.get(mapHeaders, getUrl() + "?" + params, restResponse);
 		} else if (restRequest.getHttpMethod().equals(HttpHead.METHOD_NAME)) {
+
+			RestAPI.head(mapHeaders, getUrl(), restResponse);
 
 		}
 

@@ -1,6 +1,9 @@
 package jiwoo.openstack.keystone.request.auth.tokens.v3_10;
 
+import java.util.HashMap;
+
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.json.JSONObject;
 
@@ -12,6 +15,13 @@ public class AuthTokensRequest implements IAuthTokensRequest {
 	private JSONObject jData = null;
 	private String method = HttpGet.METHOD_NAME;
 	private String postResponseMethod = null;
+	private HashMap<String, String> mapHeaders = new HashMap<String, String>();
+
+	@Override
+	public HashMap<String, String> getHeaders() {
+		// TODO Auto-generated method stub
+		return mapHeaders;
+	}
 
 	@Override
 	public String getHttpMethod() {
@@ -47,7 +57,7 @@ public class AuthTokensRequest implements IAuthTokensRequest {
 		postResponseMethod = "passwordAuthWithDomainIdScope";
 		jData = Auth.passwordAuthWithDomainIdScope(domainId, id, password);
 	}
-	
+
 	public void passwordAuthWithDomainNameScope(String domainName, String id, String password) {
 		method = HttpPost.METHOD_NAME;
 		postResponseMethod = "passwordAuthWithDomainNameScope";
@@ -59,44 +69,44 @@ public class AuthTokensRequest implements IAuthTokensRequest {
 		postResponseMethod = "passwordAuthWithProjectIdScope";
 		jData = Auth.passwordAuthWithProjectIdScope(projectId, id, password);
 	}
-	
+
 	public void passwordAuthWithProjectNameScope(String projectName, String domainId, String id, String password) {
 		method = HttpPost.METHOD_NAME;
 		postResponseMethod = "passwordAuthWithProjectNameScope";
 		jData = Auth.passwordAuthWithProjectNameScope(projectName, domainId, id, password);
 	}
-	
+
 	public void passwordAuthWithExplicitUnscope(String id, String password) {
 		method = HttpPost.METHOD_NAME;
 		postResponseMethod = "passwordAuthWithExplicitUnscope";
 		jData = Auth.passwordAuthWithExplicitUnscope(id, password);
-		
+
 	}
-	
+
 	public void tokenAuthWithUnscope(String tokenId) {
 		method = HttpPost.METHOD_NAME;
 		postResponseMethod = "tokenAuthWithUnscope";
 		jData = Auth.tokenAuthWithUnscope(tokenId);
 	}
-	
+
 	public void tokenAuthWithSystemScope(String tokenId, boolean isAll) {
 		method = HttpPost.METHOD_NAME;
 		postResponseMethod = "tokenAuthWithSystemScope";
 		jData = Auth.tokenAuthWithSystemScope(tokenId, isAll);
 	}
-	
+
 	public void tokenAuthWithDomainIdScope(String tokenId, String domainId) {
 		method = HttpPost.METHOD_NAME;
 		postResponseMethod = "tokenAuthWithDomainIdScope";
 		jData = Auth.tokenAuthWithDomainIdScope(tokenId, domainId);
 	}
-	
+
 	public void tokenAuthWithDomainNameScope(String tokenId, String domainName) {
 		method = HttpPost.METHOD_NAME;
 		postResponseMethod = "tokenAuthWithDomainNameScope";
 		jData = Auth.tokenAuthWithDomainNameScope(tokenId, domainName);
 	}
-	
+
 	@Override
 	public void tokenAuthWithProjectIdScope(String tokenId, String projectId) {
 		// TODO Auto-generated method stub
@@ -112,7 +122,7 @@ public class AuthTokensRequest implements IAuthTokensRequest {
 		postResponseMethod = "tokenAuthWithProjectNameScope";
 		jData = Auth.tokenAuthWithProjectNameScope(tokenId, projectName, domainId);
 	}
-	
+
 	@Override
 	public void tokenAuthWithExplicitUnscope(String tokenId) {
 		// TODO Auto-generated method stub
@@ -120,7 +130,27 @@ public class AuthTokensRequest implements IAuthTokensRequest {
 		postResponseMethod = "tokenAuthWithExplicitUnscope";
 		jData = Auth.tokenAuthWithExplicitUnscope(tokenId);
 	}
-	
+
+	@Override
+	public void validateToken(String token) {
+		method = HttpGet.METHOD_NAME;
+		postResponseMethod = "validateToken";
+		jData = new JSONObject();
+		mapHeaders.clear();
+		mapHeaders.put("X-Auth-Token", token);
+		mapHeaders.put("X-Subject-Token", token);
+	}
+
+	@Override
+	public void checkToken(String token) {
+		method = HttpHead.METHOD_NAME;
+		postResponseMethod = "checkToken";
+		jData = new JSONObject();
+		mapHeaders.clear();
+		mapHeaders.put("X-Auth-Token", token);
+		mapHeaders.put("X-Subject-Token", token);
+	}
+
 	public JSONObject toJsonObject() {
 		return jData;
 	}
@@ -128,9 +158,5 @@ public class AuthTokensRequest implements IAuthTokensRequest {
 	public String toJsonString() {
 		return jData.toString();
 	}
-
-	
-
-
 
 }
