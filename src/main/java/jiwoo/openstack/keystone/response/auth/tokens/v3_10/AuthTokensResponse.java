@@ -144,16 +144,26 @@ public class AuthTokensResponse extends AbstractAuthTokensResponse {
 	}
 
 	@Override
-	protected JSONObject validateToken(String response) {
+	protected JSONObject getTokenInfo(String response) {
 		// TODO Auto-generated method stub
-		System.out.println("Call TestMethod validateToken");
+		System.out.println("Call TestMethod getTokenInfo");
 		return new JSONObject(response);
 	}
 
 	@Override
-	protected JSONObject checkToken(String response) {
+	protected JSONObject validateToken(String response) {
 		// TODO Auto-generated method stub
-		System.out.println("Call TestMethod checkToken - " + response);
+		System.out.println("Call TestMethod validateToken - " + response);
+		JSONObject jResponse = new JSONObject();
+		jResponse.put("status", "success");
+
+		return jResponse;
+	}
+
+	@Override
+	protected JSONObject deleteToken(String response) {
+		// TODO Auto-generated method stub
+		System.out.println("Call TestMethod deleteToken - " + response);
 		JSONObject jResponse = new JSONObject();
 		jResponse.put("status", "success");
 

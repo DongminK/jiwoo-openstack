@@ -32,8 +32,10 @@ public interface IAuthTokensRequest extends RestRequest {
 	
 	void tokenAuthWithExplicitUnscope(String tokenId);
 	
+	void getTokenInfo(String token);
+	
 	void validateToken(String token);
 	
-	void checkToken(String token);
+	void deleteToken(String token);
 	
 }

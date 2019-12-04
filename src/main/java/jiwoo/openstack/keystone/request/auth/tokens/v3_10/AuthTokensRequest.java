@@ -2,6 +2,7 @@ package jiwoo.openstack.keystone.request.auth.tokens.v3_10;
 
 import java.util.HashMap;
 
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
@@ -132,9 +133,9 @@ public class AuthTokensRequest implements IAuthTokensRequest {
 	}
 
 	@Override
-	public void validateToken(String token) {
+	public void getTokenInfo(String token) {
 		method = HttpGet.METHOD_NAME;
-		postResponseMethod = "validateToken";
+		postResponseMethod = "getTokenInfo";
 		jData = new JSONObject();
 		mapHeaders.clear();
 		mapHeaders.put("X-Auth-Token", token);
@@ -142,9 +143,19 @@ public class AuthTokensRequest implements IAuthTokensRequest {
 	}
 
 	@Override
-	public void checkToken(String token) {
+	public void validateToken(String token) {
 		method = HttpHead.METHOD_NAME;
-		postResponseMethod = "checkToken";
+		postResponseMethod = "validateToken";
+		jData = new JSONObject();
+		mapHeaders.clear();
+		mapHeaders.put("X-Auth-Token", token);
+		mapHeaders.put("X-Subject-Token", token);
+	}
+	
+	@Override
+	public void deleteToken(String token) {
+		method = HttpDelete.METHOD_NAME;
+		postResponseMethod = "deleteToken";
 		jData = new JSONObject();
 		mapHeaders.clear();
 		mapHeaders.put("X-Auth-Token", token);
