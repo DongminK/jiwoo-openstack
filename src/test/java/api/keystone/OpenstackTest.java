@@ -7,7 +7,7 @@ import jiwoo.openstack.neutron.NeutronManager;
 import jiwoo.openstack.nova.NovaManager;
 import jiwoo.openstack.rest.APIKey;
 
-public class KeystoneTest {
+public class OpenstackTest {
 
 	public static void main(String[] args) throws Exception {
 

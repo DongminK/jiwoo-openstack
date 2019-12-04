@@ -149,12 +149,15 @@ public class AuthTokensResponse extends AbstractAuthTokensResponse {
 		System.out.println("Call TestMethod validateToken");
 		return new JSONObject(response);
 	}
-	
+
 	@Override
 	protected JSONObject checkToken(String response) {
 		// TODO Auto-generated method stub
 		System.out.println("Call TestMethod checkToken - " + response);
-		return new JSONObject();
+		JSONObject jResponse = new JSONObject();
+		jResponse.put("status", "success");
+
+		return jResponse;
 	}
 
 }

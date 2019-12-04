@@ -58,11 +58,17 @@ public class AuthTokens extends RestHandler {
 		JSONObject data = restRequest.toJsonObject();
 		restResponse.setPostResponseMethod(restRequest.getPostResponseMethod());
 
+		HashMap<String, String> mapHeaders = new HashMap<String, String>();
 		APIKey apiKey = openstack.getApiKey();
-		HashMap<String, String> mapHeaders = restRequest.getHeaders();
 
 		if (apiKey != null) {
 			mapHeaders.put("X-Auth-Token", apiKey.getToken());
+		}
+
+		HashMap<String, String> mapReqHeaders = restRequest.getHeaders();
+
+		if (mapReqHeaders != null) {
+			mapHeaders.putAll(mapReqHeaders);
 		}
 
 		if (restRequest.getHttpMethod().equals(HttpPost.METHOD_NAME)) {
