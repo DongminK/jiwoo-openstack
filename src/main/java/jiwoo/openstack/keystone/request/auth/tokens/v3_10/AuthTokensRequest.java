@@ -133,6 +133,22 @@ public class AuthTokensRequest implements IAuthTokensRequest {
 	}
 
 	@Override
+	public void applicationCridential(String id, String secret) {
+		// TODO Auto-generated method stub
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "applicationCridential";
+		jData = Auth.applicationCridential(id, secret);
+	}
+
+	@Override
+	public void applicationCridential(String name, String id, String secret) {
+		// TODO Auto-generated method stub
+		method = HttpPost.METHOD_NAME;
+		postResponseMethod = "applicationCridential";
+		jData = Auth.applicationCridential(name, id, secret);
+	}
+
+	@Override
 	public void getTokenInfo(String token) {
 		method = HttpGet.METHOD_NAME;
 		postResponseMethod = "getTokenInfo";
@@ -151,7 +167,7 @@ public class AuthTokensRequest implements IAuthTokensRequest {
 		mapHeaders.put("X-Auth-Token", token);
 		mapHeaders.put("X-Subject-Token", token);
 	}
-	
+
 	@Override
 	public void deleteToken(String token) {
 		method = HttpDelete.METHOD_NAME;

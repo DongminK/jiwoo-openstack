@@ -3,7 +3,7 @@ package api.keystone;
 import jiwoo.openstack.keystone.KeystoneManager;
 import jiwoo.openstack.rest.APIKey;
 
-public class OpenstackTest {
+public class KeystoneTest {
 
 	public static void main(String[] args) throws Exception {
 
@@ -17,10 +17,10 @@ public class OpenstackTest {
 		KeystoneManager keystone = new KeystoneManager();
 		keystone.connect("http://192.168.119.31:5000");
 
-		String response = keystone.passwordAuthWithUnscope(domainName, userName, password);
+		// String response = keystone.passwordAuthWithUnscope(domainName, userName, password);
 		// String response = keystone.passwordAuthWithSystemScope(userId, password, true);
 		// String response = keystone.passwordAuthWithDomainIdScope(domainId, userId, password);
-		// String response = keystone.passwordAuthWithProjectNameScope(projectName, domainId, userId, password);
+		String response = keystone.passwordAuthWithProjectNameScope(projectName, domainId, userId, password);
 		// String response = keystone.passwordAuthWithDomainNameScope(domainName, userId, password);
 		System.out.println(response);
 
@@ -34,18 +34,8 @@ public class OpenstackTest {
 		keystone.getAuthProjects();
 		keystone.getAuthDomains();
 		keystone.getAuthSystem();
-
-		// NovaManager nova = new NovaManager();
-		// nova.connect("http://192.168.119.31:8774", apiKey);
-		//
-		// NeutronManager neutron = new NeutronManager();
-		// neutron.connect("http://192.168.119.31:9696", apiKey);
-		//
-		// CinderManager cinder = new CinderManager();
-		// cinder.connect("http://192.168.119.31:8776", apiKey);
-		//
-		// GlanceManager glance = new GlanceManager();
-		// glance.connect("http://192.168.119.31:9292", apiKey);
+		keystone.applicationCredential(userId, password);
+		keystone.applicationCredential("monitoring", userId, password);
 
 	}
 

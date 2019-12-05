@@ -29,13 +29,17 @@ public interface IAuthTokensRequest extends RestRequest {
 	void tokenAuthWithProjectIdScope(String tokenId, String projectId);
 
 	void tokenAuthWithProjectNameScope(String tokenId, String projectName, String domainId);
-	
+
 	void tokenAuthWithExplicitUnscope(String tokenId);
-	
+
+	void applicationCridential(String id, String secret);
+
+	void applicationCridential(String name, String id, String scrert);
+
 	void getTokenInfo(String token);
-	
+
 	void validateToken(String token);
-	
+
 	void deleteToken(String token);
-	
+
 }

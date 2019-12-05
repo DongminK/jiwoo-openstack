@@ -425,4 +425,54 @@ public class Auth {
 
 	}
 
+	public static JSONObject applicationCridential(String id, String secret) {
+
+		ApplicationCredential applicationCredential = new ApplicationCredential();
+		applicationCredential.setId(id);
+		applicationCredential.setSecret(secret);
+
+		Methods methods = new Methods();
+		methods.add("application_credential");
+
+		Identity identity = new Identity();
+		identity.setMethods(methods);
+		identity.setApplicationCredential(applicationCredential);
+
+		JSONObject jAuth = new JSONObject();
+		jAuth.put("identity", identity.toJSONObject());
+
+		JSONObject jObj = new JSONObject();
+		jObj.put("auth", jAuth);
+
+		return jObj;
+
+	}
+
+	public static JSONObject applicationCridential(String name, String id, String secret) {
+
+		User user = new User();
+		user.setId(id);
+
+		ApplicationCredential applicationCredential = new ApplicationCredential();
+		applicationCredential.setName(name);
+		applicationCredential.setSecret(secret);
+		applicationCredential.setUser(user);
+
+		Methods methods = new Methods();
+		methods.add("application_credential");
+
+		Identity identity = new Identity();
+		identity.setMethods(methods);
+		identity.setApplicationCredential(applicationCredential);
+
+		JSONObject jAuth = new JSONObject();
+		jAuth.put("identity", identity.toJSONObject());
+
+		JSONObject jObj = new JSONObject();
+		jObj.put("auth", jAuth);
+
+		return jObj;
+
+	}
+
 }
