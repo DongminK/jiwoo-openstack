@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jiwoo.openstack.cinder.CinderConstants;
-import jiwoo.openstack.cinder.request.versions.VersionsRequest;
-import jiwoo.openstack.cinder.response.versions.VersionsResponse;
+import jiwoo.openstack.cinder.versions.VersionsRequest;
+import jiwoo.openstack.cinder.versions.VersionsResponse;
 import jiwoo.openstack.rest.RestAPI;
 import jiwoo.openstack.rest.RestHandler;
 

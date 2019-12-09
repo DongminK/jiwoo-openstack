@@ -4,53 +4,52 @@ import java.util.HashMap;
 
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jiwoo.openstack.keystone.KeystoneConstants;
-import jiwoo.openstack.keystone.auth.tokens.AbstractAuthTokensResponse;
-import jiwoo.openstack.keystone.auth.tokens.IAuthTokensRequest;
+import jiwoo.openstack.keystone.users.applicationcredentials.AbstractApplicationCredentialsResponse;
+import jiwoo.openstack.keystone.users.applicationcredentials.IApplicationCredentialsRequest;
 import jiwoo.openstack.rest.APIKey;
 import jiwoo.openstack.rest.RestAPI;
 import jiwoo.openstack.rest.RestHandler;
 
-public class AuthTokens extends RestHandler {
+public class ApplicationCredentials extends RestHandler {
 
-	private Logger logger = LoggerFactory.getLogger(AuthTokens.class);
+	private Logger logger = LoggerFactory.getLogger(ApplicationCredentials.class);
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return KeystoneConstants.AUTH_TOKENS;
+		return KeystoneConstants.APPLICATION_CREDENTIALS;
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	protected Class getRequestClass() {
 		// TODO Auto-generated method stub
-		return IAuthTokensRequest.class;
+		return IApplicationCredentialsRequest.class;
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	protected Class getResponseClass() {
 		// TODO Auto-generated method stub
-		return AbstractAuthTokensResponse.class;
+		return AbstractApplicationCredentialsResponse.class;
 	}
 
 	@Override
-	public IAuthTokensRequest getRequest() {
+	public IApplicationCredentialsRequest getRequest() {
 		// TODO Auto-generated method stub
-		return (IAuthTokensRequest) restRequest;
+		return (IApplicationCredentialsRequest) restRequest;
 	}
 
 	@Override
-	public AbstractAuthTokensResponse getResponse() {
+	public AbstractApplicationCredentialsResponse getResponse() {
 		// TODO Auto-generated method stub
-		return (AbstractAuthTokensResponse) restResponse;
+		return (AbstractApplicationCredentialsResponse) restResponse;
 	}
 
 	@Override
@@ -72,28 +71,28 @@ public class AuthTokens extends RestHandler {
 			mapHeaders.putAll(mapReqHeaders);
 		}
 
+		String url = getUrl();
+
+		if (data.has("uris")) {
+			JSONObject jUris = data.getJSONObject("uris");
+			for (String key : jUris.keySet()) {
+				url = url.replace("{" + key + "}", jUris.getString(key));
+			}
+
+			data.remove("uris");
+		}
+
 		if (restRequest.getHttpMethod().equals(HttpPost.METHOD_NAME)) {
 
-			RestAPI.post(mapHeaders, getUrl(), data, restResponse);
-			apiKey = getResponse().getAPIKey();
-
-			if (apiKey != null)
-				openstack.getApiKey().setToken(apiKey.getToken());
+			RestAPI.post(mapHeaders, url, data, restResponse);
 
 		} else if (restRequest.getHttpMethod().equals(HttpGet.METHOD_NAME)) {
 
-			String params = "";
-			if (data.has("params"))
-				params = data.getString("params");
-
-			RestAPI.get(mapHeaders, getUrl() + "?" + params, restResponse);
-		} else if (restRequest.getHttpMethod().equals(HttpHead.METHOD_NAME)) {
-
-			RestAPI.head(mapHeaders, getUrl(), restResponse);
+			RestAPI.get(mapHeaders, url, restResponse);
 
 		} else if (restRequest.getHttpMethod().equals(HttpDelete.METHOD_NAME)) {
 
-			RestAPI.delete(mapHeaders, getUrl(), restResponse);
+			RestAPI.delete(mapHeaders, url, restResponse);
 
 		}
 

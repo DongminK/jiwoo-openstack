@@ -6,8 +6,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.json.JSONObject;
 
 import jiwoo.openstack.keystone.KeystoneConstants;
-import jiwoo.openstack.keystone.request.auth.catalog.IAuthCatalogRequest;
-import jiwoo.openstack.keystone.response.auth.catalog.AbstractAuthCatalogResponse;
+import jiwoo.openstack.keystone.auth.catalog.AbstractAuthCatalogResponse;
+import jiwoo.openstack.keystone.auth.catalog.IAuthCatalogRequest;
 import jiwoo.openstack.rest.APIKey;
 import jiwoo.openstack.rest.RestAPI;
 import jiwoo.openstack.rest.RestHandler;

@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jiwoo.openstack.nova.NovaConstants;
-import jiwoo.openstack.nova.request.versions.VersionsRequest;
-import jiwoo.openstack.nova.response.versions.VersionsResponse;
+import jiwoo.openstack.nova.versions.VersionsRequest;
+import jiwoo.openstack.nova.versions.VersionsResponse;
 import jiwoo.openstack.rest.RestAPI;
 import jiwoo.openstack.rest.RestHandler;
 

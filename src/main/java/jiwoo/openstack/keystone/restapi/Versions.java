@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jiwoo.openstack.keystone.KeystoneConstants;
-import jiwoo.openstack.keystone.request.versions.VersionsRequest;
-import jiwoo.openstack.keystone.response.versions.VersionsResponse;
+import jiwoo.openstack.keystone.versions.VersionsRequest;
+import jiwoo.openstack.keystone.versions.VersionsResponse;
 import jiwoo.openstack.rest.RestAPI;
 import jiwoo.openstack.rest.RestHandler;
 

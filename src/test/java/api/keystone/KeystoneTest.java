@@ -13,6 +13,8 @@ public class KeystoneTest {
 		String userName = "admin";
 		String password = "insoft00";
 		String projectName = "admin";
+		String appId = "253175ed8bdd4e80807a51ad3b976a76";
+		String secret = "ld8GyBfoN9f4L-XJ5ABZTcuoBXtaO0OBralPO7dLvLYwz_BMhd6ZQibqqtAgMq2L44hpw6NiKwKAql8nlfEwAA";
 
 		KeystoneManager keystone = new KeystoneManager();
 		keystone.connect("http://192.168.119.31:5000");
@@ -34,8 +36,15 @@ public class KeystoneTest {
 		keystone.getAuthProjects();
 		keystone.getAuthDomains();
 		keystone.getAuthSystem();
-		keystone.applicationCredential(userId, password);
-		keystone.applicationCredential("monitoring", userId, password);
+		keystone.applicationCredential(appId, secret);
+		keystone.applicationCredential("monitoring", userId, secret);
+		// keystone.createApplicationCredential(userId, "monitoring");
+		keystone.getApplicationCredentials(userId);
+		keystone.getApplicationCredential(appId, userId);
+		keystone.deleteApplicationCredential(appId, userId);
+
+		keystone.getAccessRules(userId);
+		keystone.getAccessRule(appId, userId);
 
 	}
 

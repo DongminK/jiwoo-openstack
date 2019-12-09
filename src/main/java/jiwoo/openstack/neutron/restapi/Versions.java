@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jiwoo.openstack.neutron.NeutronConstants;
-import jiwoo.openstack.neutron.request.versions.VersionsRequest;
-import jiwoo.openstack.neutron.response.versions.VersionsResponse;
+import jiwoo.openstack.neutron.versions.VersionsRequest;
+import jiwoo.openstack.neutron.versions.VersionsResponse;
 import jiwoo.openstack.rest.RestAPI;
 import jiwoo.openstack.rest.RestHandler;
 

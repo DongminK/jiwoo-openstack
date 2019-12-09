@@ -1,16 +1,20 @@
 package jiwoo.openstack.keystone;
 
-import jiwoo.openstack.keystone.request.auth.catalog.IAuthCatalogRequest;
-import jiwoo.openstack.keystone.request.auth.domains.IAuthDomainsRequest;
-import jiwoo.openstack.keystone.request.auth.projects.IAuthProjectsRequest;
-import jiwoo.openstack.keystone.request.auth.system.IAuthSystemRequest;
-import jiwoo.openstack.keystone.request.auth.tokens.IAuthTokensRequest;
+import jiwoo.openstack.keystone.auth.catalog.IAuthCatalogRequest;
+import jiwoo.openstack.keystone.auth.domains.IAuthDomainsRequest;
+import jiwoo.openstack.keystone.auth.projects.IAuthProjectsRequest;
+import jiwoo.openstack.keystone.auth.system.IAuthSystemRequest;
+import jiwoo.openstack.keystone.auth.tokens.IAuthTokensRequest;
+import jiwoo.openstack.keystone.restapi.AccessRules;
+import jiwoo.openstack.keystone.restapi.ApplicationCredentials;
 import jiwoo.openstack.keystone.restapi.AuthCatalog;
 import jiwoo.openstack.keystone.restapi.AuthDomains;
 import jiwoo.openstack.keystone.restapi.AuthProjects;
 import jiwoo.openstack.keystone.restapi.AuthSystem;
 import jiwoo.openstack.keystone.restapi.AuthTokens;
 import jiwoo.openstack.keystone.restapi.Versions;
+import jiwoo.openstack.keystone.users.accessrules.IAccessRulesRequest;
+import jiwoo.openstack.keystone.users.applicationcredentials.IApplicationCredentialsRequest;
 import jiwoo.openstack.rest.APIKey;
 
 public class KeystoneManager {
@@ -129,7 +133,7 @@ public class KeystoneManager {
 		return authTokens.process();
 	}
 
-	public String applicationCredential(String name, String id, String secret) throws Exception {
+	public String applicationCredential(String name, String userId, String secret) throws Exception {
 		if (keystone == null)
 			throw new Exception("Not connect keystone");
 
@@ -137,7 +141,7 @@ public class KeystoneManager {
 		authTokens.setOpenstackInfo(keystone);
 
 		IAuthTokensRequest request = authTokens.getRequest();
-		request.applicationCridential(name, id, secret);
+		request.applicationCridential(name, userId, secret);
 
 		return authTokens.process();
 	}
@@ -238,6 +242,103 @@ public class KeystoneManager {
 		request.getAuthSystem();
 
 		return authSystem.process();
+
+	}
+
+	public String createApplicationCredential(String userId, String name) throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+
+		ApplicationCredentials appCredential = new ApplicationCredentials();
+		appCredential.setOpenstackInfo(keystone);
+
+		IApplicationCredentialsRequest request = appCredential.getRequest();
+		request.createApplicationCredential(userId, name);
+
+		return appCredential.process();
+
+	}
+
+	public String getApplicationCredentials(String userId) throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+
+		ApplicationCredentials appCredential = new ApplicationCredentials();
+		appCredential.setOpenstackInfo(keystone);
+
+		IApplicationCredentialsRequest request = appCredential.getRequest();
+		request.getApplicationCredentials(userId);
+
+		return appCredential.process();
+
+	}
+
+	public String getApplicationCredential(String appId, String userId) throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+
+		ApplicationCredentials appCredential = new ApplicationCredentials();
+		appCredential.setOpenstackInfo(keystone);
+
+		IApplicationCredentialsRequest request = appCredential.getRequest();
+		request.getApplicationCredential(appId, userId);
+
+		return appCredential.process();
+
+	}
+
+	public String deleteApplicationCredential(String appId, String userId) throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+
+		ApplicationCredentials users = new ApplicationCredentials();
+		users.setOpenstackInfo(keystone);
+
+		IApplicationCredentialsRequest request = users.getRequest();
+		request.deleteApplicationCredential(appId, userId);
+
+		return users.process();
+
+	}
+
+	public String getAccessRules(String userId) throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+
+		AccessRules accessRules = new AccessRules();
+		accessRules.setOpenstackInfo(keystone);
+
+		IAccessRulesRequest request = accessRules.getRequest();
+		request.getAccessRules(userId);
+
+		return accessRules.process();
+
+	}
+
+	public String getAccessRule(String accessRuleId, String userId) throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+
+		AccessRules accessRules = new AccessRules();
+		accessRules.setOpenstackInfo(keystone);
+
+		IAccessRulesRequest request = accessRules.getRequest();
+		request.getAccessRule(accessRuleId, userId);
+
+		return accessRules.process();
+
+	}
+
+	public String deleteAccessRules(String accessRuleId, String userId) throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+		AccessRules accessRules = new AccessRules();
+		accessRules.setOpenstackInfo(keystone);
+
+		IAccessRulesRequest request = accessRules.getRequest();
+		request.deleteAccessRule(accessRuleId, userId);
+
+		return accessRules.process();
 
 	}
 
