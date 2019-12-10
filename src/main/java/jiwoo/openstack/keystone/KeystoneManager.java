@@ -5,6 +5,7 @@ import jiwoo.openstack.keystone.auth.domains.AbstractAuthDomainsRequest;
 import jiwoo.openstack.keystone.auth.projects.AbstractAuthProjectsRequest;
 import jiwoo.openstack.keystone.auth.system.AbstractAuthSystemRequest;
 import jiwoo.openstack.keystone.auth.tokens.AbstractAuthTokensRequest;
+import jiwoo.openstack.keystone.credentials.AbstractCredentialsRequest;
 import jiwoo.openstack.keystone.restapi.AccessRules;
 import jiwoo.openstack.keystone.restapi.ApplicationCredentials;
 import jiwoo.openstack.keystone.restapi.AuthCatalog;
@@ -12,6 +13,7 @@ import jiwoo.openstack.keystone.restapi.AuthDomains;
 import jiwoo.openstack.keystone.restapi.AuthProjects;
 import jiwoo.openstack.keystone.restapi.AuthSystem;
 import jiwoo.openstack.keystone.restapi.AuthTokens;
+import jiwoo.openstack.keystone.restapi.Credential;
 import jiwoo.openstack.keystone.restapi.Versions;
 import jiwoo.openstack.keystone.users.accessrules.AbstractAccessRulesRequest;
 import jiwoo.openstack.keystone.users.applicationcredentials.AbstractApplicationCredentialsRequest;
@@ -339,6 +341,72 @@ public class KeystoneManager {
 		request.deleteAccessRule(accessRuleId, userId);
 
 		return accessRules.process();
+
+	}
+
+	public String createCredential(String projectId, String type, String userId, String blob) throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+		Credential credential = new Credential();
+		credential.setOpenstackInfo(keystone);
+
+		AbstractCredentialsRequest request = credential.getRequest();
+		request.create(projectId, type, userId, blob);
+
+		return credential.process();
+
+	}
+
+	public String getCredentials() throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+		Credential credential = new Credential();
+		credential.setOpenstackInfo(keystone);
+
+		AbstractCredentialsRequest request = credential.getRequest();
+		request.getCredentials();
+
+		return credential.process();
+
+	}
+
+	public String getCredential(String credentialId) throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+		Credential credential = new Credential();
+		credential.setOpenstackInfo(keystone);
+
+		AbstractCredentialsRequest request = credential.getRequest();
+		request.getCredential(credentialId);
+
+		return credential.process();
+
+	}
+
+	public String updateCredential(String credentialId, String projectId, String type, String userId, String blob)
+			throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+		Credential credential = new Credential();
+		credential.setOpenstackInfo(keystone);
+
+		AbstractCredentialsRequest request = credential.getRequest();
+		request.update(credentialId, projectId, type, userId, blob);
+
+		return credential.process();
+
+	}
+
+	public String deleteCredential(String credentialId) throws Exception {
+		if (keystone == null)
+			throw new Exception("Not connect keystone");
+		Credential credential = new Credential();
+		credential.setOpenstackInfo(keystone);
+
+		AbstractCredentialsRequest request = credential.getRequest();
+		request.delete(credentialId);
+
+		return credential.process();
 
 	}
 

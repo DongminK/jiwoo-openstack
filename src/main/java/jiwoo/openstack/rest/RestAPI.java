@@ -7,6 +7,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpHead;
+import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
@@ -141,6 +142,31 @@ public class RestAPI {
 		}
 
 		HttpResponse response = client.execute(httpHead);
+
+		// Response 출력
+		return responseHandler.handleResponse(response);
+
+	}
+
+	public static String patch(HashMap<String, String> mapHeaders, String url) throws Exception {
+		return delete(mapHeaders, url, new BasicResponseHandler());
+	}
+
+	public static String patch(HashMap<String, String> mapHeaders, String url, BasicResponseHandler responseHandler)
+			throws Exception {
+
+		HttpPatch httpPatch = new HttpPatch(url); // HttpPatch 메소드 URL 새성
+		httpPatch.setHeader("Accept", "application/json");
+		httpPatch.setHeader("Connection", "keep-alive");
+		httpPatch.setHeader("Content-Type", "application/json");
+
+		if (mapHeaders != null) {
+			for (String key : mapHeaders.keySet()) {
+				httpPatch.addHeader(key, mapHeaders.get(key));
+			}
+		}
+
+		HttpResponse response = client.execute(httpPatch);
 
 		// Response 출력
 		return responseHandler.handleResponse(response);

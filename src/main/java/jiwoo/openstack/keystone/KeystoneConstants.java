@@ -10,5 +10,6 @@ public class KeystoneConstants {
 	public static final String AUTH_SYSTEM = "AUTH_SYSTEM";
 	public static final String APPLICATION_CREDENTIALS = "APPLICATION_CREDENTIALS";
 	public static final String ACCESS_RULES = "ACCESS_RULES";
+	public static final String CREDENTIAL = "CREDENTIAL";
 
 }
