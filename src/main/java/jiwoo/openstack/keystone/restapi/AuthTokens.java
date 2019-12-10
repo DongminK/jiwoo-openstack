@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import jiwoo.openstack.keystone.KeystoneConstants;
 import jiwoo.openstack.keystone.auth.tokens.AbstractAuthTokensResponse;
-import jiwoo.openstack.keystone.auth.tokens.IAuthTokensRequest;
+import jiwoo.openstack.keystone.auth.tokens.AbstractAuthTokensRequest;
 import jiwoo.openstack.rest.APIKey;
 import jiwoo.openstack.rest.RestAPI;
 import jiwoo.openstack.rest.RestHandler;
@@ -31,7 +31,7 @@ public class AuthTokens extends RestHandler {
 	@Override
 	protected Class getRequestClass() {
 		// TODO Auto-generated method stub
-		return IAuthTokensRequest.class;
+		return AbstractAuthTokensRequest.class;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -42,9 +42,9 @@ public class AuthTokens extends RestHandler {
 	}
 
 	@Override
-	public IAuthTokensRequest getRequest() {
+	public AbstractAuthTokensRequest getRequest() {
 		// TODO Auto-generated method stub
-		return (IAuthTokensRequest) restRequest;
+		return (AbstractAuthTokensRequest) restRequest;
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class AuthTokens extends RestHandler {
 	protected String execute() throws Exception {
 		// TODO Auto-generated method stub
 		JSONObject data = restRequest.toJsonObject();
-		restResponse.setPostResponseMethod(restRequest.getPostResponseMethod());
+		restResponse.setResponseMethodName(restRequest.getResponseMethodName());
 
 		HashMap<String, String> mapHeaders = new HashMap<String, String>();
 		APIKey apiKey = openstack.getApiKey();

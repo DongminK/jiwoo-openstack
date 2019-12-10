@@ -12,7 +12,7 @@ import jiwoo.openstack.rest.RestResponse;
 public class VersionsResponse extends RestResponse {
 
 	@Override
-	protected JSONObject setResponse(HttpResponse httpResponse) throws HttpResponseException, IOException {
+	public String handleResponse(final HttpResponse httpResponse) throws HttpResponseException, IOException {
 		// TODO Auto-generated method stub
 		String response = null;
 
@@ -30,8 +30,9 @@ public class VersionsResponse extends RestResponse {
 			e.printStackTrace();
 		}
 
-		JSONObject jResponse = new JSONObject(response);
-		return jResponse;
+		jResponse = new JSONObject(response);
+
+		return toJsonString();
 	}
 
 }

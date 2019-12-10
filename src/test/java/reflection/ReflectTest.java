@@ -16,6 +16,16 @@ public class ReflectTest {
 			System.err.println(e);
 		}
 
+		test();
+
+	}
+
+	public static void test() {
+
+		for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
+			System.out.println(ste.getMethodName());
+		}
+
 	}
 
 }

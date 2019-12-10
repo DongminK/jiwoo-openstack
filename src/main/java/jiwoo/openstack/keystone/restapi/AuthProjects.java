@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import jiwoo.openstack.keystone.KeystoneConstants;
 import jiwoo.openstack.keystone.auth.projects.AbstractAuthProjectsResponse;
-import jiwoo.openstack.keystone.auth.projects.IAuthProjectsRequest;
+import jiwoo.openstack.keystone.auth.projects.AbstractAuthProjectsRequest;
 import jiwoo.openstack.rest.APIKey;
 import jiwoo.openstack.rest.RestAPI;
 import jiwoo.openstack.rest.RestHandler;
@@ -21,9 +21,9 @@ public class AuthProjects extends RestHandler {
 	}
 
 	@Override
-	public IAuthProjectsRequest getRequest() {
+	public AbstractAuthProjectsRequest getRequest() {
 		// TODO Auto-generated method stub
-		return (IAuthProjectsRequest) restRequest;
+		return (AbstractAuthProjectsRequest) restRequest;
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class AuthProjects extends RestHandler {
 	@Override
 	protected Class getRequestClass() {
 		// TODO Auto-generated method stub
-		return IAuthProjectsRequest.class;
+		return AbstractAuthProjectsRequest.class;
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class AuthProjects extends RestHandler {
 	protected String execute() throws Exception {
 		// TODO Auto-generated method stub
 		JSONObject data = restRequest.toJsonObject();
-		restResponse.setPostResponseMethod(restRequest.getPostResponseMethod());
+		restResponse.setResponseMethodName(restRequest.getResponseMethodName());
 
 		HashMap<String, String> mapHeaders = new HashMap<String, String>();
 		APIKey apiKey = openstack.getApiKey();

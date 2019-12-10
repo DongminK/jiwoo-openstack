@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jiwoo.openstack.keystone.KeystoneConstants;
+import jiwoo.openstack.keystone.users.accessrules.AbstractAccessRulesRequest;
 import jiwoo.openstack.keystone.users.accessrules.AbstractAccessRulesResponse;
-import jiwoo.openstack.keystone.users.accessrules.IAccessRulesRequest;
 import jiwoo.openstack.rest.APIKey;
 import jiwoo.openstack.rest.RestAPI;
 import jiwoo.openstack.rest.RestHandler;
@@ -29,7 +29,7 @@ public class AccessRules extends RestHandler {
 	@Override
 	protected Class getRequestClass() {
 		// TODO Auto-generated method stub
-		return IAccessRulesRequest.class;
+		return AbstractAccessRulesRequest.class;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -40,9 +40,9 @@ public class AccessRules extends RestHandler {
 	}
 
 	@Override
-	public IAccessRulesRequest getRequest() {
+	public AbstractAccessRulesRequest getRequest() {
 		// TODO Auto-generated method stub
-		return (IAccessRulesRequest) restRequest;
+		return (AbstractAccessRulesRequest) restRequest;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class AccessRules extends RestHandler {
 	protected String execute() throws Exception {
 		// TODO Auto-generated method stub
 		JSONObject data = restRequest.toJsonObject();
-		restResponse.setPostResponseMethod(restRequest.getPostResponseMethod());
+		restResponse.setResponseMethodName(restRequest.getResponseMethodName());
 
 		HashMap<String, String> mapHeaders = new HashMap<String, String>();
 		APIKey apiKey = openstack.getApiKey();

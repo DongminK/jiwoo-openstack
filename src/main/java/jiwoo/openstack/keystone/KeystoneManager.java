@@ -1,10 +1,10 @@
 package jiwoo.openstack.keystone;
 
-import jiwoo.openstack.keystone.auth.catalog.IAuthCatalogRequest;
-import jiwoo.openstack.keystone.auth.domains.IAuthDomainsRequest;
-import jiwoo.openstack.keystone.auth.projects.IAuthProjectsRequest;
-import jiwoo.openstack.keystone.auth.system.IAuthSystemRequest;
-import jiwoo.openstack.keystone.auth.tokens.IAuthTokensRequest;
+import jiwoo.openstack.keystone.auth.catalog.AbstractAuthCatalogRequest;
+import jiwoo.openstack.keystone.auth.domains.AbstractAuthDomainsRequest;
+import jiwoo.openstack.keystone.auth.projects.AbstractAuthProjectsRequest;
+import jiwoo.openstack.keystone.auth.system.AbstractAuthSystemRequest;
+import jiwoo.openstack.keystone.auth.tokens.AbstractAuthTokensRequest;
 import jiwoo.openstack.keystone.restapi.AccessRules;
 import jiwoo.openstack.keystone.restapi.ApplicationCredentials;
 import jiwoo.openstack.keystone.restapi.AuthCatalog;
@@ -13,8 +13,8 @@ import jiwoo.openstack.keystone.restapi.AuthProjects;
 import jiwoo.openstack.keystone.restapi.AuthSystem;
 import jiwoo.openstack.keystone.restapi.AuthTokens;
 import jiwoo.openstack.keystone.restapi.Versions;
-import jiwoo.openstack.keystone.users.accessrules.IAccessRulesRequest;
-import jiwoo.openstack.keystone.users.applicationcredentials.IApplicationCredentialsRequest;
+import jiwoo.openstack.keystone.users.accessrules.AbstractAccessRulesRequest;
+import jiwoo.openstack.keystone.users.applicationcredentials.AbstractApplicationCredentialsRequest;
 import jiwoo.openstack.rest.APIKey;
 
 public class KeystoneManager {
@@ -35,7 +35,7 @@ public class KeystoneManager {
 		AuthTokens authTokens = new AuthTokens();
 		authTokens.setOpenstackInfo(keystone);
 
-		IAuthTokensRequest request = authTokens.getRequest();
+		AbstractAuthTokensRequest request = authTokens.getRequest();
 		request.passwordAuthWithUnscope(domainName, userName, password);
 
 		return authTokens.process();
@@ -48,7 +48,7 @@ public class KeystoneManager {
 		AuthTokens authTokens = new AuthTokens();
 		authTokens.setOpenstackInfo(keystone);
 
-		IAuthTokensRequest request = authTokens.getRequest();
+		AbstractAuthTokensRequest request = authTokens.getRequest();
 		request.passwordAuthWithSystemScope(id, password, isAll);
 
 		return authTokens.process();
@@ -61,7 +61,7 @@ public class KeystoneManager {
 		AuthTokens authTokens = new AuthTokens();
 		authTokens.setOpenstackInfo(keystone);
 
-		IAuthTokensRequest request = authTokens.getRequest();
+		AbstractAuthTokensRequest request = authTokens.getRequest();
 		request.passwordAuthWithDomainIdScope(domainId, id, password);
 
 		return authTokens.process();
@@ -74,7 +74,7 @@ public class KeystoneManager {
 		AuthTokens authTokens = new AuthTokens();
 		authTokens.setOpenstackInfo(keystone);
 
-		IAuthTokensRequest request = authTokens.getRequest();
+		AbstractAuthTokensRequest request = authTokens.getRequest();
 		request.passwordAuthWithDomainNameScope(domainName, id, password);
 
 		return authTokens.process();
@@ -87,7 +87,7 @@ public class KeystoneManager {
 		AuthTokens authTokens = new AuthTokens();
 		authTokens.setOpenstackInfo(keystone);
 
-		IAuthTokensRequest request = authTokens.getRequest();
+		AbstractAuthTokensRequest request = authTokens.getRequest();
 		request.passwordAuthWithProjectIdScope(projectId, id, password);
 
 		return authTokens.process();
@@ -101,7 +101,7 @@ public class KeystoneManager {
 		AuthTokens authTokens = new AuthTokens();
 		authTokens.setOpenstackInfo(keystone);
 
-		IAuthTokensRequest request = authTokens.getRequest();
+		AbstractAuthTokensRequest request = authTokens.getRequest();
 		request.passwordAuthWithProjectNameScope(projectName, domainId, id, password);
 
 		return authTokens.process();
@@ -114,7 +114,7 @@ public class KeystoneManager {
 		AuthTokens authTokens = new AuthTokens();
 		authTokens.setOpenstackInfo(keystone);
 
-		IAuthTokensRequest request = authTokens.getRequest();
+		AbstractAuthTokensRequest request = authTokens.getRequest();
 		request.passwordAuthWithExplicitUnscope(id, password);
 
 		return authTokens.process();
@@ -127,7 +127,7 @@ public class KeystoneManager {
 		AuthTokens authTokens = new AuthTokens();
 		authTokens.setOpenstackInfo(keystone);
 
-		IAuthTokensRequest request = authTokens.getRequest();
+		AbstractAuthTokensRequest request = authTokens.getRequest();
 		request.applicationCridential(id, secret);
 
 		return authTokens.process();
@@ -140,7 +140,7 @@ public class KeystoneManager {
 		AuthTokens authTokens = new AuthTokens();
 		authTokens.setOpenstackInfo(keystone);
 
-		IAuthTokensRequest request = authTokens.getRequest();
+		AbstractAuthTokensRequest request = authTokens.getRequest();
 		request.applicationCridential(name, userId, secret);
 
 		return authTokens.process();
@@ -153,7 +153,7 @@ public class KeystoneManager {
 		AuthTokens authTokens = new AuthTokens();
 		authTokens.setOpenstackInfo(keystone);
 
-		IAuthTokensRequest request = authTokens.getRequest();
+		AbstractAuthTokensRequest request = authTokens.getRequest();
 		request.getTokenInfo(token);
 
 		return authTokens.process();
@@ -166,7 +166,7 @@ public class KeystoneManager {
 		AuthTokens authTokens = new AuthTokens();
 		authTokens.setOpenstackInfo(keystone);
 
-		IAuthTokensRequest request = authTokens.getRequest();
+		AbstractAuthTokensRequest request = authTokens.getRequest();
 		request.validateToken(token);
 
 		return authTokens.process();
@@ -179,7 +179,7 @@ public class KeystoneManager {
 		AuthTokens authTokens = new AuthTokens();
 		authTokens.setOpenstackInfo(keystone);
 
-		IAuthTokensRequest request = authTokens.getRequest();
+		AbstractAuthTokensRequest request = authTokens.getRequest();
 		request.deleteToken(token);
 
 		return authTokens.process();
@@ -193,7 +193,7 @@ public class KeystoneManager {
 		AuthCatalog authCatalog = new AuthCatalog();
 		authCatalog.setOpenstackInfo(keystone);
 
-		IAuthCatalogRequest request = authCatalog.getRequest();
+		AbstractAuthCatalogRequest request = authCatalog.getRequest();
 		request.getServiceCatalog();
 
 		return authCatalog.process();
@@ -208,7 +208,7 @@ public class KeystoneManager {
 		AuthProjects authProjects = new AuthProjects();
 		authProjects.setOpenstackInfo(keystone);
 
-		IAuthProjectsRequest request = authProjects.getRequest();
+		AbstractAuthProjectsRequest request = authProjects.getRequest();
 		request.getAuthProjects();
 
 		return authProjects.process();
@@ -223,7 +223,7 @@ public class KeystoneManager {
 		AuthDomains authDomains = new AuthDomains();
 		authDomains.setOpenstackInfo(keystone);
 
-		IAuthDomainsRequest request = authDomains.getRequest();
+		AbstractAuthDomainsRequest request = authDomains.getRequest();
 		request.getAuthDomains();
 
 		return authDomains.process();
@@ -238,7 +238,7 @@ public class KeystoneManager {
 		AuthSystem authSystem = new AuthSystem();
 		authSystem.setOpenstackInfo(keystone);
 
-		IAuthSystemRequest request = authSystem.getRequest();
+		AbstractAuthSystemRequest request = authSystem.getRequest();
 		request.getAuthSystem();
 
 		return authSystem.process();
@@ -252,7 +252,7 @@ public class KeystoneManager {
 		ApplicationCredentials appCredential = new ApplicationCredentials();
 		appCredential.setOpenstackInfo(keystone);
 
-		IApplicationCredentialsRequest request = appCredential.getRequest();
+		AbstractApplicationCredentialsRequest request = appCredential.getRequest();
 		request.createApplicationCredential(userId, name);
 
 		return appCredential.process();
@@ -266,7 +266,7 @@ public class KeystoneManager {
 		ApplicationCredentials appCredential = new ApplicationCredentials();
 		appCredential.setOpenstackInfo(keystone);
 
-		IApplicationCredentialsRequest request = appCredential.getRequest();
+		AbstractApplicationCredentialsRequest request = appCredential.getRequest();
 		request.getApplicationCredentials(userId);
 
 		return appCredential.process();
@@ -280,7 +280,7 @@ public class KeystoneManager {
 		ApplicationCredentials appCredential = new ApplicationCredentials();
 		appCredential.setOpenstackInfo(keystone);
 
-		IApplicationCredentialsRequest request = appCredential.getRequest();
+		AbstractApplicationCredentialsRequest request = appCredential.getRequest();
 		request.getApplicationCredential(appId, userId);
 
 		return appCredential.process();
@@ -294,7 +294,7 @@ public class KeystoneManager {
 		ApplicationCredentials users = new ApplicationCredentials();
 		users.setOpenstackInfo(keystone);
 
-		IApplicationCredentialsRequest request = users.getRequest();
+		AbstractApplicationCredentialsRequest request = users.getRequest();
 		request.deleteApplicationCredential(appId, userId);
 
 		return users.process();
@@ -308,7 +308,7 @@ public class KeystoneManager {
 		AccessRules accessRules = new AccessRules();
 		accessRules.setOpenstackInfo(keystone);
 
-		IAccessRulesRequest request = accessRules.getRequest();
+		AbstractAccessRulesRequest request = accessRules.getRequest();
 		request.getAccessRules(userId);
 
 		return accessRules.process();
@@ -322,7 +322,7 @@ public class KeystoneManager {
 		AccessRules accessRules = new AccessRules();
 		accessRules.setOpenstackInfo(keystone);
 
-		IAccessRulesRequest request = accessRules.getRequest();
+		AbstractAccessRulesRequest request = accessRules.getRequest();
 		request.getAccessRule(accessRuleId, userId);
 
 		return accessRules.process();
@@ -335,7 +335,7 @@ public class KeystoneManager {
 		AccessRules accessRules = new AccessRules();
 		accessRules.setOpenstackInfo(keystone);
 
-		IAccessRulesRequest request = accessRules.getRequest();
+		AbstractAccessRulesRequest request = accessRules.getRequest();
 		request.deleteAccessRule(accessRuleId, userId);
 
 		return accessRules.process();

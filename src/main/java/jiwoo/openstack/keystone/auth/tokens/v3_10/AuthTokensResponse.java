@@ -22,7 +22,7 @@ public class AuthTokensResponse extends AbstractAuthTokensResponse {
 	}
 
 	@Override
-	protected JSONObject setResponse(HttpResponse httpResponse) throws HttpResponseException, IOException {
+	public String handleResponse(HttpResponse httpResponse) throws HttpResponseException, IOException {
 		// TODO Auto-generated method stub
 
 		Header[] header = httpResponse.getHeaders("X-Subject-Token");
@@ -32,11 +32,10 @@ public class AuthTokensResponse extends AbstractAuthTokensResponse {
 		}
 
 		String response = baseHandleResponse(httpResponse);
-		JSONObject jResponse = null;
 
-		if (postResponseMethod != null) {
+		if (responseMethodName != null) {
 			try {
-				jResponse = (JSONObject) CommonUtil.executeMethod(this, postResponseMethod, response);
+				jResponse = (JSONObject) CommonUtil.executeMethod(this, responseMethodName, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 				jResponse = new JSONObject(response);
@@ -45,7 +44,7 @@ public class AuthTokensResponse extends AbstractAuthTokensResponse {
 			jResponse = new JSONObject(response);
 		}
 
-		return jResponse;
+		return toJsonString();
 	}
 
 	protected JSONObject passwordAuthWithUnscope(String response) {

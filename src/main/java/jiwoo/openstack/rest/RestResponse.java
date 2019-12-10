@@ -7,14 +7,29 @@ import org.apache.http.client.HttpResponseException;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.json.JSONObject;
 
+import jiwoo.openstack.common.CommonUtil;
+
 public abstract class RestResponse extends BasicResponseHandler {
 
 	protected JSONObject jResponse = null;
-	protected String postResponseMethod = null;
+	protected String responseMethodName = null;
 
 	@Override
 	public String handleResponse(final HttpResponse httpResponse) throws HttpResponseException, IOException {
-		jResponse = setResponse(httpResponse);
+
+		String response = baseHandleResponse(httpResponse);
+
+		if (responseMethodName != null) {
+			try {
+				jResponse = (JSONObject) CommonUtil.executeMethod(this, responseMethodName, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				jResponse = new JSONObject(response);
+			}
+		} else {
+			jResponse = new JSONObject(response);
+		}
+
 		return toJsonString();
 	}
 
@@ -30,10 +45,8 @@ public abstract class RestResponse extends BasicResponseHandler {
 		return super.handleResponse(httpResponse);
 	}
 
-	public final void setPostResponseMethod(String postResponseMethod) {
-		this.postResponseMethod = postResponseMethod;
+	public final void setResponseMethodName(String responseMethodName) {
+		this.responseMethodName = responseMethodName;
 	}
-
-	abstract protected JSONObject setResponse(final HttpResponse httpResponse) throws HttpResponseException, IOException;
 
 }

@@ -10,8 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jiwoo.openstack.keystone.KeystoneConstants;
+import jiwoo.openstack.keystone.users.applicationcredentials.AbstractApplicationCredentialsRequest;
 import jiwoo.openstack.keystone.users.applicationcredentials.AbstractApplicationCredentialsResponse;
-import jiwoo.openstack.keystone.users.applicationcredentials.IApplicationCredentialsRequest;
 import jiwoo.openstack.rest.APIKey;
 import jiwoo.openstack.rest.RestAPI;
 import jiwoo.openstack.rest.RestHandler;
@@ -30,7 +30,7 @@ public class ApplicationCredentials extends RestHandler {
 	@Override
 	protected Class getRequestClass() {
 		// TODO Auto-generated method stub
-		return IApplicationCredentialsRequest.class;
+		return AbstractApplicationCredentialsRequest.class;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -41,9 +41,9 @@ public class ApplicationCredentials extends RestHandler {
 	}
 
 	@Override
-	public IApplicationCredentialsRequest getRequest() {
+	public AbstractApplicationCredentialsRequest getRequest() {
 		// TODO Auto-generated method stub
-		return (IApplicationCredentialsRequest) restRequest;
+		return (AbstractApplicationCredentialsRequest) restRequest;
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class ApplicationCredentials extends RestHandler {
 	protected String execute() throws Exception {
 		// TODO Auto-generated method stub
 		JSONObject data = restRequest.toJsonObject();
-		restResponse.setPostResponseMethod(restRequest.getPostResponseMethod());
+		restResponse.setResponseMethodName(restRequest.getResponseMethodName());
 
 		HashMap<String, String> mapHeaders = new HashMap<String, String>();
 		APIKey apiKey = openstack.getApiKey();
